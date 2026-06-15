@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./generated"
+  output   = "./generated"
 }
 
 datasource db {
@@ -13,11 +13,10 @@ model User {
   password       String
   name           String?
   role           Role
-  product        Product[]
-  stockMovements StockMovement[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-
+  product        Product[]
+  stockMovements StockMovement[]
 }
 
 model Product {
@@ -28,29 +27,26 @@ model Product {
   isActive    Boolean  @default(true)
   categoryId  String
   createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   category    Category @relation(fields: [categoryId], references: [id])
   createdBy   User     @relation(fields: [createdById], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
 }
 
 model Purchase {
-  id    String         @id @default(uuid())
-  total Int
-  items PurchaseItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String         @id @default(uuid())
+  total     Int
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  items     PurchaseItem[]
 }
 
 model ingredient {
@@ -59,11 +55,10 @@ model ingredient {
   unit           String
   stock          Decimal
   averagePrice   Decimal
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
   purchaseItem   PurchaseItem[]
   stockMovements StockMovement[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model PurchaseItem {
@@ -72,11 +67,10 @@ model PurchaseItem {
   total         Decimal    @db.Decimal(12, 2)
   purchaseId    String
   ingredientdId String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   ingredient    ingredient @relation(fields: [ingredientdId], references: [id])
   purchase      Purchase   @relation(fields: [purchaseId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model StockMovement {
@@ -86,11 +80,10 @@ model StockMovement {
   type         movementType
   qty          Decimal      @db.Decimal(12, 2)
   notes        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
   createdBy    User         @relation(fields: [createdById], references: [id])
   ingredient   ingredient   @relation(fields: [ingredientId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 enum Role {
