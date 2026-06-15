@@ -1,9 +1,12 @@
-import express from "express"
+import { Router } from "express"
+import authRoutes from "./auth.routes"
 
 
-const routes = express.Router()
+const routes = Router()
 
-routes.use()
+routes.use(authRoutes)
+
+export default routes
 
 
 

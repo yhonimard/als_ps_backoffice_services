@@ -125,7 +125,9 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   name: 'name',
-  role: 'role'
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -135,17 +137,23 @@ exports.Prisma.ProductScalarFieldEnum = {
   sellPrice: 'sellPrice',
   isActive: 'isActive',
   categoryId: 'categoryId',
-  createdById: 'createdById'
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PurchaseScalarFieldEnum = {
   id: 'id',
-  total: 'total'
+  total: 'total',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.IngredientScalarFieldEnum = {
@@ -153,7 +161,9 @@ exports.Prisma.IngredientScalarFieldEnum = {
   name: 'name',
   unit: 'unit',
   stock: 'stock',
-  averagePrice: 'averagePrice'
+  averagePrice: 'averagePrice',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PurchaseItemScalarFieldEnum = {
@@ -161,7 +171,9 @@ exports.Prisma.PurchaseItemScalarFieldEnum = {
   invoiceNo: 'invoiceNo',
   total: 'total',
   purchaseId: 'purchaseId',
-  ingredientdId: 'ingredientdId'
+  ingredientdId: 'ingredientdId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.StockMovementScalarFieldEnum = {
@@ -170,7 +182,9 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   ingredientId: 'ingredientId',
   type: 'type',
   qty: 'qty',
-  notes: 'notes'
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
