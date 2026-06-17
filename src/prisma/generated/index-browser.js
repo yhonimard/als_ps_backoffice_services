@@ -132,10 +132,7 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
-  sku: 'sku',
   name: 'name',
-  sellPrice: 'sellPrice',
-  isActive: 'isActive',
   categoryId: 'categoryId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -171,7 +168,7 @@ exports.Prisma.PurchaseItemScalarFieldEnum = {
   invoiceNo: 'invoiceNo',
   total: 'total',
   purchaseId: 'purchaseId',
-  ingredientdId: 'ingredientdId',
+  ingredientId: 'ingredientId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -185,6 +182,27 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductRecipeScalarFieldEnum = {
+  id: 'id',
+  productVariantId: 'productVariantId',
+  ingredientId: 'ingredientId',
+  quantity: 'quantity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductVariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  name: 'name',
+  sku: 'sku',
+  isActive: 'isActive',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createByUserId: 'createByUserId'
 };
 
 exports.Prisma.SortOrder = {
@@ -222,7 +240,9 @@ exports.Prisma.ModelName = {
   Purchase: 'Purchase',
   ingredient: 'ingredient',
   PurchaseItem: 'PurchaseItem',
-  StockMovement: 'StockMovement'
+  StockMovement: 'StockMovement',
+  ProductRecipe: 'ProductRecipe',
+  ProductVariant: 'ProductVariant'
 };
 
 /**

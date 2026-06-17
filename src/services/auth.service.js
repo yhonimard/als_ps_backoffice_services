@@ -27,7 +27,7 @@ const AuthService = () => {
         role: "MANAGER"
       }
 
-      await prisma.user.create({ data: signData })
+      await prisma.user.create({ data: signData, })
 
     } catch (error) {
       throw errorHandle(error)
@@ -40,7 +40,7 @@ const AuthService = () => {
       const user = await prisma.user.findUnique({
         where: {
           username: data.username
-        }
+        },
       })
 
 
