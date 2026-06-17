@@ -24,6 +24,7 @@ const ProductService = () => {
           name: data.name
         }
       })
+
       const isProductVariantExist = await prisma.productVariant.findFirst({
         where: {
           name: data.variantName
@@ -149,10 +150,32 @@ const ProductService = () => {
 
   }
 
+  const createCategory = async (data) => {
+    try {
+      const existingCategory = await prisma.category.findFirst({
+        where: {
+          name: data.name
+        }
+      })
+
+      if (existingCategory) throw new ApiConflictError(`Category "${data.name}" already exist`)
+
+      await prisma.category.create({
+        data: {
+          name: data.name,
+        }
+      })
+
+    } catch (error) {
+      throw errorHandle(error)
+    }
+  }
+
   return {
     createProduct,
     getProductCategory,
-    getProduct
+    getProduct,
+    createCategory
   }
 }
 

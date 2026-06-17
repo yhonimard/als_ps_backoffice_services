@@ -7,7 +7,7 @@ const ProductController = (service) => {
       const response = await service.getProductCategory(req.body, req.user)
       return res.json(response)
     } catch (error) {
-      next(error)
+      return next(error)
     }
   }
 
@@ -17,23 +17,33 @@ const ProductController = (service) => {
       const response = await service.createProduct(req.body, req.user)
       return res.status(httpstatus.CREATED).json({ message: 'success' })
     } catch (error) {
-      next(error)
+      return next(error)
     }
   }
 
-  const getProduct = async (req,res,next)=>{
+  const getProduct = async (req, res, next) => {
     try {
-    const response = await service.getProduct(req.params)
-    res.json(response)
+      const response = await service.getProduct(req.params)
+      res.json(response)
     } catch (error) {
-     next(error) 
+      return next(error)
+    }
+  }
+
+  const createCategory = async (req, res, next) => {
+    try {
+      await service.createCategory(req.body)
+      res.status(httpstatus.CREATED).json({ message: 'success' })
+    } catch (error) {
+      return next(error)
     }
   }
 
   return {
     createProduct,
     getProductCategory,
-    getProduct
+    getProduct,
+    createCategory
   }
 }
 
