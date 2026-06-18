@@ -23,7 +23,7 @@ const ProductController = (service) => {
 
   const getProduct = async (req, res, next) => {
     try {
-      const response = await service.getProduct(req.params)
+      const response = await service.getProduct(req.query)
       res.json(response)
     } catch (error) {
       return next(error)

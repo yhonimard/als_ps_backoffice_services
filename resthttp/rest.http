@@ -1,0 +1,29 @@
+
+
+@base_url= http://localhost:2000/api
+@token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlZWJiODI0LWM4NDktNDg1Zi1hOGNiLTU3NmI5NWE0OTUwYyIsInVzZXJuYW1lIjoieWhvbmkiLCJpYXQiOjE3ODE3MjI3OTV9.oWZWttyYEtL4g25SMsbvYxf0S2TrRu3c4IUFd5UiX08
+@contentType = application/json
+
+// @name login
+POST {{base_url}}/auth/login HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: {{token}}
+
+{
+  "username" : "yhoni",
+  "password":"yhoni"
+}
+
+###
+
+# @name getProduct
+GET  {{base_url}}/product HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: {{token}}
+
+###
+
+# @name getProductCategory
+GET  {{base_url}}/product/category HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: {{token}}

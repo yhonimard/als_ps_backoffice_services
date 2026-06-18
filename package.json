@@ -20,6 +20,7 @@
     "confidence": "^5.0.1",
     "cors": "^2.8.6",
     "cross-env": "^10.1.0",
+    "dayjs": "^1.11.21",
     "express": "^5.2.1",
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",

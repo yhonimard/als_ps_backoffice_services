@@ -1,18 +1,23 @@
+import dayjs from "dayjs"
 import ApiBadResponse from "../exceptions/ApiBadResponse"
 import ApiConflictError from "../exceptions/ApiConflictError"
 import errorHandle from "../exceptions/error-handle"
 import prisma from "../lib/prisma"
 import httpstatus from "http-status"
+import paginationHelper from "../helper/pagination-helper"
+import toPaginationHelper from "../helper/to-pagination-helper"
 
 const ProductService = () => {
 
   const getProductCategory = async (data, user) => {
-    const res = await prisma.category.findMany()
-    return res
-  }
+    const res = await prisma.category.findMany({ select: { id: true, name: true } })
 
-  const createProductCategory = async (data, user) => {
+    const mappedResult = res.map(d => ({
+      ...d,
+      categoryId: d.name
+    }))
 
+    return mappedResult
   }
 
 
@@ -97,39 +102,52 @@ const ProductService = () => {
   }
 
 
-  const getProduct = async (params) => {
+  const getProduct = async (query) => {
     try {
 
-      const products = await prisma.productVariant.findMany({
-        select: {
-          id: true,
-          name: true,
-          sku: true,
-          price: true,
-          isActive: true,
-          createdByUser: {
-            select: {
-              id: true,
-              username: true,
-              name: true,
-              role: true
-            }
-          },
-          product: {
-            select: {
-              id: true,
-              name: true,
-              category: {
-                select: {
-                  id: true,
-                  name: true,
+      const { skip, take } = paginationHelper(query)
+
+      const { count, products } = await prisma.$transaction(async (tx) => {
+
+        const products = await tx.productVariant.findMany({
+          skip,
+          take,
+          select: {
+            createdAt: true,
+            id: true,
+            name: true,
+            sku: true,
+            price: true,
+            isActive: true,
+            createdByUser: {
+              select: {
+                id: true,
+                username: true,
+                name: true,
+                role: true
+              }
+            },
+            product: {
+              select: {
+                id: true,
+                name: true,
+                category: {
+                  select: {
+                    id: true,
+                    name: true,
+                  }
                 }
               }
             }
-          }
 
-        }
+          }
+        })
+
+
+        const count = await prisma.product.count()
+        return { products, count }
       })
+
 
       const mappedProduct = products.map(p => ({
         id: p.id,
@@ -139,10 +157,14 @@ const ProductService = () => {
         category: p.product.category.name,
         price: Number(p.price),
         status: p.isActive,
-        createdBy: p.createdByUser.username
+        createdBy: p.createdByUser.username,
+        createdDate: p.createdAt
       }))
 
-      return mappedProduct
+
+      
+      return toPaginationHelper(mappedProduct, count, query, "products")
+      // return mappedProduct
 
     } catch (error) {
       errorHandle(error)
